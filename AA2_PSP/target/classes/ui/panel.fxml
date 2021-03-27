@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #333c4e;">
+         <children>
+            <TableView fx:id="tvList" layoutX="23.0" layoutY="100.0" prefHeight="200.0" prefWidth="456.0" />
+            <TableView fx:id="tvFav" layoutX="23.0" layoutY="370.0" prefHeight="200.0" prefWidth="456.0" />
+            <Label layoutX="194.0" layoutY="316.0" text="Favoritos" textFill="WHITE">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Label>
+            <Label layoutX="222.0" layoutY="54.0" text="Lista" textFill="WHITE">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Label>
+            <Button fx:id="btAdd" layoutX="96.0" layoutY="324.0" mnemonicParsing="false" onAction="#addFav" text="&gt;&gt;&gt;" />
+            <Button fx:id="btAll" layoutX="534.0" layoutY="134.0" mnemonicParsing="false" onAction="#getAll" text="Buscar idioma Español" />
+            <ProgressIndicator fx:id="piProgress" layoutX="430.0" layoutY="323.0" progress="0.0" />
+            <TextField fx:id="tfSearch" layoutX="527.0" layoutY="244.0" />
+            <Button fx:id="btSearch" layoutX="710.0" layoutY="244.0" mnemonicParsing="false" onAction="#search" text="Buscar" />
+            <Button fx:id="btExport" layoutX="586.0" layoutY="312.0" mnemonicParsing="false" onAction="#export" text="Exportar aCSV" />
+            <Button fx:id="btExpZip" layoutX="587.0" layoutY="394.0" mnemonicParsing="false" onAction="#expzip" text="Exportar y Zip" />
+            <Button fx:id="btInfo" layoutX="602.0" layoutY="491.0" mnemonicParsing="false" onAction="#info" text="Ver info" />
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>

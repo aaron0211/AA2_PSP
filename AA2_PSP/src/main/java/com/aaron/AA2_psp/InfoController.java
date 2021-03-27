@@ -26,6 +26,6 @@ public class InfoController implements Initializable {
         lbRegion.setText(country.getRegion());
         lbPopulation.setText(String.valueOf(country.getPopulation()));
         wvImagen.getEngine().load(country.getFlag());
-        wvImagen.setFontScale(0.1);
+        wvImagen.setZoom(0.5);
     }
 }

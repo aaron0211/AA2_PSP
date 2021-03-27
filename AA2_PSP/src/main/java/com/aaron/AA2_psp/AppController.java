@@ -21,14 +21,15 @@ import org.apache.commons.csv.CSVPrinter;
 import rx.Observable;
 import rx.schedulers.Schedulers;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 public class AppController implements Initializable {
 
@@ -54,6 +55,7 @@ public class AppController implements Initializable {
         accion = Accion.SPANISH;
         tfSearch.setPromptText("Buscar pais");
         piProgress.setProgress(-1);
+        piProgress.setVisible(true);
 
         lstCountries = FXCollections.observableArrayList();
         tvList.setItems(lstCountries);
@@ -62,13 +64,26 @@ public class AppController implements Initializable {
         tvFav.setItems(lstFav);
 
         fijarColumnas();
-        cargarLista();
+        cargarTodos();
     }
 
-    private void cargarLista(){
+    private void cargarTodos(){
         tvList.getItems().clear();
 
         countrieService.getAll()
+                .flatMap(Observable::from)
+                .doOnCompleted(()-> {
+                    System.out.println("Listado descargado");
+                    piProgress.setVisible(false);
+                })
+                .doOnError(throwable -> System.out.println(throwable.getMessage()))
+                .subscribeOn(Schedulers.from(Executors.newCachedThreadPool()))
+                .subscribe(country -> lstCountries.add(country));
+    }
+
+    private void cargarSpanish(){
+        tvList.getItems().clear();
+        countrieService.getSpanish()
                 .flatMap(Observable::from)
                 .doOnCompleted(()-> {
                     System.out.println("Listado descargado");
@@ -110,34 +125,23 @@ public class AppController implements Initializable {
     }
 
     @FXML
+    private void removeFav(ActionEvent event){
+        lstFav.remove(tvFav.getSelectionModel().getSelectedItem());
+    }
+
+    @FXML
     private void getAll(ActionEvent event){
         piProgress.setVisible(true);
         switch (accion){
             case ALL:
-                tvList.getItems().clear();
-                countrieService.getAll()
-                        .flatMap(Observable::from)
-                        .doOnCompleted(()-> {
-                            System.out.println("Listado descargado");
-                            piProgress.setVisible(false);
-                        })
-                        .doOnError(throwable -> System.out.println(throwable.getMessage()))
-                        .subscribeOn(Schedulers.from(Executors.newCachedThreadPool()))
-                        .subscribe(country -> lstCountries.add(country));
+                piProgress.setVisible(true);
+                cargarTodos();
                 accion = Accion.SPANISH;
                 btAll.setText("Buscar idioma Español");
                 break;
             case SPANISH:
-                tvList.getItems().clear();
-                countrieService.getSpanish()
-                        .flatMap(Observable::from)
-                        .doOnCompleted(()-> {
-                            System.out.println("Listado descargado");
-                            piProgress.setVisible(false);
-                        })
-                        .doOnError(throwable -> System.out.println(throwable.getMessage()))
-                        .subscribeOn(Schedulers.from(Executors.newCachedThreadPool()))
-                        .subscribe(country -> lstCountries.add(country));
+                piProgress.setVisible(true);
+                cargarSpanish();
                 accion = Accion.ALL;
                 btAll.setText("Buscar todos");
                 break;
@@ -184,15 +188,33 @@ public class AppController implements Initializable {
 
     @FXML
     private void export(ActionEvent event){
+        if (exportar() != null) AlertUtils.mostrarInfo("Archivo exportado con exito");
+    }
+
+    @FXML
+    private void expzip(ActionEvent event){
+        CompletableFuture.supplyAsync(() -> exportar())
+                .thenAccept(value -> zip(value));
+    }
+
+    private File exportar(){
+        File fichero = null;
         try{
+            List<Country> countryList = tvFav.getItems();
+            if (countryList.size()<1) {
+                AlertUtils.mostrarAlerta("Ningun elemento en la tabla");
+                return null;
+            }
+
             FileChooser fileChooser = new FileChooser();
-            File fichero = fileChooser.showSaveDialog(btExport.getScene().getWindow());
-            if (fichero == null) return;
+            fichero = fileChooser.showSaveDialog(btExport.getScene().getWindow());
+            if (fichero == null) {
+                AlertUtils.mostrarAlerta("Fallo al exportar");
+                return null;
+            }
 
             FileWriter fileWriter = new FileWriter(fichero);
             CSVPrinter printer = new CSVPrinter(fileWriter, CSVFormat.DEFAULT);
-
-            List<Country> countryList = tvFav.getItems();
             for (Country country: countryList){
                 printer.printRecord(country.getName(),country.getCapital(),
                         country.getRegion(),country.getSubregion(),
@@ -202,11 +224,26 @@ public class AppController implements Initializable {
         }catch (IOException ioe){
             AlertUtils.mostrarAlerta("Error al exportar los datos");
         }
-        AlertUtils.mostrarInfo("Archivo exportado con exito");
+        return fichero;
     }
 
-    @FXML
-    private void expzip(ActionEvent event){
-
+    private void zip(File fichero){
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream("Compressed.zip");
+            ZipOutputStream zipOut = new ZipOutputStream(fileOutputStream);
+            FileInputStream fileInputStream = new FileInputStream(fichero);
+            ZipEntry zipEntry = new ZipEntry(fichero.getName());
+            zipOut.putNextEntry(zipEntry);
+            byte[] bytes = new byte[1024];
+            int length;
+            while ((length = fileInputStream.read(bytes)) >=0){
+                zipOut.write(bytes, 0, length);
+            }
+            zipOut.close();
+            fileInputStream.close();
+            fileOutputStream.close();
+        }catch (IOException ioe){
+            AlertUtils.mostrarAlerta("Fallo de compresion");
+        }
     }
 }

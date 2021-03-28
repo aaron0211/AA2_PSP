@@ -34,7 +34,7 @@ import java.util.zip.ZipOutputStream;
 public class AppController implements Initializable {
 
     public TableView tvList, tvFav;
-    public Button btSearch, btAll, btAdd, btInfo, btExport, btExpZip;
+    public Button btSearch, btAll, btAdd, btInfo, btExport, btExpZip, btWeb;
     public TextField tfSearch;
     public ProgressIndicator piProgress;
 
@@ -195,6 +195,25 @@ public class AppController implements Initializable {
     private void expzip(ActionEvent event){
         CompletableFuture.supplyAsync(() -> exportar())
                 .thenAccept(value -> zip(value));
+    }
+
+    @FXML
+    private void webclient(ActionEvent event){
+        FXMLLoader loader = new FXMLLoader();
+        WebClientController controller = new WebClientController();
+        loader.setLocation(R.getUI("panelWeb.fxml"));
+        loader.setController(controller);
+        VBox vBox = null;
+        try {
+            vBox = loader.load();
+        } catch (IOException e) {
+            AlertUtils.mostrarAlerta("No se ha podido conectar");
+        }
+
+        Scene scene = new Scene(vBox);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
     }
 
     private File exportar(){

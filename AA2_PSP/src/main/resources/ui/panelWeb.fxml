@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <TableView fx:id="tvWebclient" layoutX="150.0" layoutY="68.0" prefHeight="200.0" prefWidth="300.0" />
+            <Label layoutX="218.0" layoutY="14.0" text="WebClient">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <Button fx:id="btConnect" layoutX="270.0" layoutY="305.0" mnemonicParsing="false" onAction="#connect" text="Connect" />
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>

@@ -24,11 +24,13 @@ public class CountryController {
 
     @GetMapping(value = "/countries", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<Country> getCountries(){
+        logger.info("Listado de todos los paises");
         return countryService.findAllCountries();
     }
 
     @GetMapping("/countries/{id}")
     public Mono<Country> getCountry(@PathParam("id") String id){
+        logger.info("Seleccionado el país con id: "+ id);
         return countryService.findCountry(id);
     }
 }

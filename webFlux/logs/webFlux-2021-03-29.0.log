@@ -1,0 +1,3 @@
+2021-03-29 02:32:01,202 INFO org.springframework.boot.admin.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin [RMI TCP Connection(10)-127.0.0.1] Application shutdown requested.
+2021-03-29 02:32:01,600 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [RMI TCP Connection(10)-127.0.0.1] Shutting down ExecutorService 'applicationTaskExecutor'
+2021-03-29 02:32:01,607 INFO com.mongodb.diagnostics.logging.SLF4JLogger [RMI TCP Connection(10)-127.0.0.1] Closed connection [connectionId{localValue:27, serverValue:3}] to localhost:27017 because there was a socket exception raised on another connection from this pool.

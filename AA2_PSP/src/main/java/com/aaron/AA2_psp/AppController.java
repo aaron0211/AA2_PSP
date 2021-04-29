@@ -193,8 +193,11 @@ public class AppController implements Initializable {
 
     @FXML
     private void expzip(ActionEvent event){
-        CompletableFuture.supplyAsync(() -> exportar())
-                .thenAccept(value -> zip(value));
+        CompletableFuture.supplyAsync(()-> exportar())
+                .whenComplete((value,error) -> zip(value));
+//        CompletableFuture.supplyAsync(() -> exportar())
+//                .thenAccept(value -> zip(value));
+        System.out.println("Pulsado");
     }
 
     @FXML
@@ -217,7 +220,7 @@ public class AppController implements Initializable {
     }
 
     private File exportar(){
-        File fichero = null;
+        File fichero = new File("C://Users//aaron//Desktop//probando.csv");
         try{
             List<Country> countryList = tvFav.getItems();
             if (countryList.size()<1) {
@@ -225,9 +228,10 @@ public class AppController implements Initializable {
                 return null;
             }
 
-            FileChooser fileChooser = new FileChooser();
-            fichero = fileChooser.showSaveDialog(btExport.getScene().getWindow());
+//            FileChooser fileChooser = new FileChooser();
+//            fichero = fileChooser.showSaveDialog(btExport.getScene().getWindow());
             if (fichero == null) {
+                System.out.println("null");
                 AlertUtils.mostrarAlerta("Fallo al exportar");
                 return null;
             }
@@ -247,6 +251,7 @@ public class AppController implements Initializable {
     }
 
     private void zip(File fichero){
+        if (fichero == null) return;
         try {
             FileOutputStream fileOutputStream = new FileOutputStream("Compressed.zip");
             ZipOutputStream zipOut = new ZipOutputStream(fileOutputStream);

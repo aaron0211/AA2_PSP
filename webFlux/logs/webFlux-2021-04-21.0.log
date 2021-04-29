@@ -1,0 +1,23 @@
+2021-04-21 01:21:35,642 INFO org.springframework.boot.StartupInfoLogger [main] Starting WebFluxApplication using Java 11.0.9 on DESKTOP-CGO0SHJ with PID 10044 (C:\Users\aaron\IdeaProjects\psp\AA2_psp\webFlux\target\classes started by aaron in C:\Users\aaron\IdeaProjects\psp\AA2_psp\webFlux)
+2021-04-21 01:21:35,664 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-04-21 01:21:37,354 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data Reactive MongoDB repositories in DEFAULT mode.
+2021-04-21 01:21:37,506 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 140 ms. Found 1 Reactive MongoDB repository interfaces.
+2021-04-21 01:21:39,321 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2021-04-21 01:21:39,357 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2021-04-21 01:21:39,360 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2021-04-21 01:21:39,362 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.43]
+2021-04-21 01:21:39,685 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2021-04-21 01:21:39,687 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 3858 ms
+2021-04-21 01:21:41,769 INFO com.mongodb.diagnostics.logging.SLF4JLogger [main] Cluster created with settings {hosts=[localhost:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms'}
+2021-04-21 01:21:45,116 INFO org.springframework.scheduling.concurrent.ExecutorConfigurationSupport [main] Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-21 01:21:45,718 INFO com.mongodb.diagnostics.logging.SLF4JLogger [cluster-ClusterId{value='607f6205e83413148814ea07', description='null'}-localhost:27017] Opened connection [connectionId{localValue:1, serverValue:1}] to localhost:27017
+2021-04-21 01:21:45,718 INFO com.mongodb.diagnostics.logging.SLF4JLogger [cluster-rtt-ClusterId{value='607f6205e83413148814ea07', description='null'}-localhost:27017] Opened connection [connectionId{localValue:2, serverValue:2}] to localhost:27017
+2021-04-21 01:21:45,719 INFO com.mongodb.diagnostics.logging.SLF4JLogger [cluster-ClusterId{value='607f6205e83413148814ea07', description='null'}-localhost:27017] Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=8, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=322129700}
+2021-04-21 01:21:45,954 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2021-04-21 01:21:45,981 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2021-04-21 01:21:46,004 INFO org.springframework.boot.StartupInfoLogger [main] Started WebFluxApplication in 11.739 seconds (JVM running for 12.675)
+2021-04-21 01:22:02,621 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-21 01:22:02,622 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2021-04-21 01:22:02,626 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 3 ms
+2021-04-21 01:22:02,684 INFO com.aaron.webFlux.controller.CountryController [http-nio-8080-exec-1] Listado de todos los paises
+2021-04-21 01:22:02,979 INFO com.mongodb.diagnostics.logging.SLF4JLogger [nioEventLoopGroup-2-3] Opened connection [connectionId{localValue:3, serverValue:3}] to localhost:27017

@@ -195,9 +195,6 @@ public class AppController implements Initializable {
     private void expzip(ActionEvent event){
         CompletableFuture.supplyAsync(()-> exportar())
                 .whenComplete((value,error) -> zip(value));
-//        CompletableFuture.supplyAsync(() -> exportar())
-//                .thenAccept(value -> zip(value));
-        System.out.println("Pulsado");
     }
 
     @FXML
@@ -269,5 +266,6 @@ public class AppController implements Initializable {
         }catch (IOException ioe){
             AlertUtils.mostrarAlerta("Fallo de compresion");
         }
+        fichero.delete();
     }
 }
